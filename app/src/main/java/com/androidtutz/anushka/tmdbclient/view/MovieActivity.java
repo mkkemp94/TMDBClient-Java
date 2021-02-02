@@ -1,75 +1,57 @@
 package com.androidtutz.anushka.tmdbclient.view;
 
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.androidtutz.anushka.tmdbclient.R;
+import com.androidtutz.anushka.tmdbclient.databinding.ActivityMovieBinding;
 import com.androidtutz.anushka.tmdbclient.model.Movie;
 import com.bumptech.glide.Glide;
 
-public class MovieActivity extends AppCompatActivity {
-
+public class MovieActivity extends AppCompatActivity
+{
+    private ActivityMovieBinding binding;
+    
     private Movie movie;
-
-    private ImageView movieImage;
-
+    
     private String image;
-
-    private TextView movieTitle, movieSynopsis, movieRating, movieReleaseDate;
-
-
+    
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_movie);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_movie);
+        
+        setSupportActionBar(binding.toolbar);
+        
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        movieImage = (ImageView) findViewById(R.id.ivMovieLarge);
-        movieTitle = (TextView) findViewById(R.id.tvMovieTitle);
-        movieSynopsis = (TextView) findViewById(R.id.tvPlotsynopsis);
-        movieRating = (TextView) findViewById(R.id.tvMovieRating);
-        movieReleaseDate = (TextView) findViewById(R.id.tvReleaseDate);
-
-
+        
         Intent intent = getIntent();
-
-        if (intent.hasExtra("movie")) {
-
+        
+        if ( intent.hasExtra("movie") )
+        {
             movie = getIntent().getParcelableExtra("movie");
-
+            
             Toast.makeText(getApplicationContext(), movie.getOriginalTitle(), Toast.LENGTH_LONG).show();
-
+            
             image = movie.getPosterPath();
-
+            
             String path = "https://image.tmdb.org/t/p/w500" + image;
-
+            
             Glide.with(this)
                     .load(path)
                     .placeholder(R.drawable.loading)
-                    .into(movieImage);
-
+                    .into(binding.ivMovieLarge);
+            
             getSupportActionBar().setTitle(movie.getTitle());
-
-            movieTitle.setText(movie.getTitle());
-            movieSynopsis.setText(movie.getOverview());
-            movieRating.setText(Double.toString(movie.getVoteAverage()));
-            movieReleaseDate.setText(movie.getReleaseDate());
+            
+            binding.contentMovie.tvMovieTitle.setText(movie.getTitle());
+            binding.contentMovie.tvPlotsynopsis.setText(movie.getOverview());
+            binding.contentMovie.tvMovieRating.setText(Double.toString(movie.getVoteAverage()));
+            binding.contentMovie.tvReleaseDate.setText(movie.getReleaseDate());
         }
-
     }
-
-
 }
