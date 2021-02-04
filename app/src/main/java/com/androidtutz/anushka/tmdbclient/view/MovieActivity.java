@@ -34,6 +34,7 @@ public class MovieActivity extends AppCompatActivity
         if ( intent.hasExtra("movie") )
         {
             movie = getIntent().getParcelableExtra("movie");
+            binding.setMovie(movie);
             
             Toast.makeText(getApplicationContext(), movie.getOriginalTitle(), Toast.LENGTH_LONG).show();
             
@@ -47,11 +48,6 @@ public class MovieActivity extends AppCompatActivity
                     .into(binding.ivMovieLarge);
             
             getSupportActionBar().setTitle(movie.getTitle());
-            
-            binding.contentMovie.tvMovieTitle.setText(movie.getTitle());
-            binding.contentMovie.tvPlotsynopsis.setText(movie.getOverview());
-            binding.contentMovie.tvMovieRating.setText(Double.toString(movie.getVoteAverage()));
-            binding.contentMovie.tvReleaseDate.setText(movie.getReleaseDate());
         }
     }
 }

@@ -4,15 +4,19 @@ package com.androidtutz.anushka.tmdbclient.model;
  * Created by K. A. ANUSHKA MADUSANKA on 7/9/2018.
  */
 
-import java.util.ArrayList;
-import java.util.List;
+import android.databinding.BaseObservable;
+import android.databinding.Bindable;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.os.Parcelable.Creator;
+
+import com.androidtutz.anushka.tmdbclient.BR;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Movie implements Parcelable
+import java.util.ArrayList;
+import java.util.List;
+
+public class Movie extends BaseObservable implements Parcelable
 {
 
     @SerializedName("vote_count")
@@ -94,14 +98,16 @@ public class Movie implements Parcelable
     public Movie() {
     }
 
+    @Bindable
     public Integer getVoteCount() {
         return voteCount;
     }
 
     public void setVoteCount(Integer voteCount) {
         this.voteCount = voteCount;
+        notifyPropertyChanged(BR.voteCount);
     }
-
+    
     public Integer getId() {
         return id;
     }
@@ -109,101 +115,126 @@ public class Movie implements Parcelable
     public void setId(Integer id) {
         this.id = id;
     }
-
+    
+    @Bindable
     public Boolean getVideo() {
         return video;
     }
 
     public void setVideo(Boolean video) {
         this.video = video;
+        notifyPropertyChanged(BR.video);
     }
-
+    
+    @Bindable
     public Double getVoteAverage() {
         return voteAverage;
     }
 
     public void setVoteAverage(Double voteAverage) {
         this.voteAverage = voteAverage;
+        notifyPropertyChanged(BR.voteAverage);
     }
-
+    
+    @Bindable
     public String getTitle() {
         return title;
     }
 
     public void setTitle(String title) {
         this.title = title;
+        notifyPropertyChanged(BR.title);
     }
-
+    
+    @Bindable
     public Double getPopularity() {
         return popularity;
     }
 
     public void setPopularity(Double popularity) {
         this.popularity = popularity;
+        notifyPropertyChanged(BR.popularity);
     }
-
+    
+    @Bindable
     public String getPosterPath() {
         return posterPath;
     }
 
     public void setPosterPath(String posterPath) {
         this.posterPath = posterPath;
+        notifyPropertyChanged(BR.posterPath);
     }
-
+    
+    @Bindable
     public String getOriginalLanguage() {
         return originalLanguage;
     }
 
     public void setOriginalLanguage(String originalLanguage) {
         this.originalLanguage = originalLanguage;
+        notifyPropertyChanged(BR.originalLanguage);
     }
-
+    
+    @Bindable
     public String getOriginalTitle() {
         return originalTitle;
     }
 
     public void setOriginalTitle(String originalTitle) {
         this.originalTitle = originalTitle;
+        notifyPropertyChanged(BR.originalTitle);
     }
-
+    
+    @Bindable
     public List<Integer> getGenreIds() {
         return genreIds;
     }
 
     public void setGenreIds(List<Integer> genreIds) {
         this.genreIds = genreIds;
+        notifyPropertyChanged(BR.voteCount);
     }
-
+    
+    @Bindable
     public String getBackdropPath() {
         return backdropPath;
     }
 
     public void setBackdropPath(String backdropPath) {
         this.backdropPath = backdropPath;
+        notifyPropertyChanged(BR.voteCount);
     }
-
+    
+    @Bindable
     public Boolean getAdult() {
         return adult;
     }
 
     public void setAdult(Boolean adult) {
         this.adult = adult;
-    }
+        notifyPropertyChanged(BR.adult);
 
+    }
+    
+    @Bindable
     public String getOverview() {
         return overview;
     }
 
     public void setOverview(String overview) {
         this.overview = overview;
+        notifyPropertyChanged(BR.overview);
     }
-
+    
+    @Bindable
     public String getReleaseDate() {
         return releaseDate;
     }
 
     public void setReleaseDate(String releaseDate) {
         this.releaseDate = releaseDate;
+        notifyPropertyChanged(BR.releaseDate);
     }
 
     public void writeToParcel(Parcel dest, int flags) {
