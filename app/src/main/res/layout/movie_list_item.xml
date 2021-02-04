@@ -2,14 +2,18 @@
 <layout>
 
     <data>
-
+        <variable
+            name="clickHandlers"
+            type="com.androidtutz.anushka.tmdbclient.adapter.MovieAdapter.MovieViewHolder.MovieAdapterClickHandlers" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:adjustViewBounds="true">
+        android:adjustViewBounds="true"
+        android:onClick="@{clickHandlers::movieClicked}"
+        >
 
         <android.support.v7.widget.CardView
             android:id="@+id/cvMovie"
@@ -54,7 +58,6 @@
                     android:textSize="12dp"/>
 
             </RelativeLayout>
-
 
         </android.support.v7.widget.CardView>
 

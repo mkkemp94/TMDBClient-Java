@@ -65,7 +65,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         return movieArrayList.size();
     }
     
-    
     public class MovieViewHolder extends RecyclerView.ViewHolder
     {
         private final MovieListItemBinding binding;
@@ -74,24 +73,24 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         {
             super(binding.getRoot());
             this.binding = binding;
-            
-            binding.getRoot().setOnClickListener(new View.OnClickListener()
+            binding.setClickHandlers(new MovieAdapterClickHandlers());
+        }
+    
+        public class MovieAdapterClickHandlers
+        {
+            public void movieClicked(View view)
             {
-                @Override
-                public void onClick(View view)
+                int position = getAdapterPosition();
+    
+                if ( position != RecyclerView.NO_POSITION )
                 {
-                    int position = getAdapterPosition();
-                    
-                    if ( position != RecyclerView.NO_POSITION )
-                    {
-                        Movie selctedMovie = movieArrayList.get(position);
-                        
-                        Intent intent = new Intent(context, MovieActivity.class);
-                        intent.putExtra("movie", selctedMovie);
-                        context.startActivity(intent);
-                    }
+                    Movie selctedMovie = movieArrayList.get(position);
+        
+                    Intent intent = new Intent(context, MovieActivity.class);
+                    intent.putExtra("movie", selctedMovie);
+                    context.startActivity(intent);
                 }
-            });
+            }
         }
     }
 }
