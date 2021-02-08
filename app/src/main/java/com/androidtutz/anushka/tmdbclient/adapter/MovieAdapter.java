@@ -2,9 +2,6 @@ package com.androidtutz.anushka.tmdbclient.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.databinding.DataBindingUtil;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +13,10 @@ import com.androidtutz.anushka.tmdbclient.view.MovieActivity;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
+
+import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by K. A. ANUSHKA MADUSANKA on 7/10/2018.

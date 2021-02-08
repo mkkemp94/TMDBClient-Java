@@ -9,11 +9,8 @@ import retrofit2.http.Query;
 /**
  * Created by K. A. ANUSHKA MADUSANKA on 7/9/2018.
  */
-public interface MovieDataService {
-
-
+public interface MovieDataService
+{
     @GET("movie/popular")
     Call<MovieDBResponse> getPopularMovies(@Query("api_key") String apiKey);
-
-
 }

@@ -1,15 +1,16 @@
 package com.androidtutz.anushka.tmdbclient.view;
 
 import android.content.Intent;
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import com.androidtutz.anushka.tmdbclient.R;
 import com.androidtutz.anushka.tmdbclient.databinding.ActivityMovieBinding;
 import com.androidtutz.anushka.tmdbclient.model.Movie;
 import com.bumptech.glide.Glide;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 public class MovieActivity extends AppCompatActivity
 {

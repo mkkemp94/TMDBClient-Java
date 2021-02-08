@@ -4,8 +4,6 @@ package com.androidtutz.anushka.tmdbclient.model;
  * Created by K. A. ANUSHKA MADUSANKA on 7/9/2018.
  */
 
-import android.databinding.BaseObservable;
-import android.databinding.Bindable;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -15,6 +13,9 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.databinding.BaseObservable;
+import androidx.databinding.Bindable;
 
 public class Movie extends BaseObservable implements Parcelable
 {

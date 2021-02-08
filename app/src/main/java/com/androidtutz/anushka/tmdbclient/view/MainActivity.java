@@ -1,30 +1,30 @@
 package com.androidtutz.anushka.tmdbclient.view;
 
 import android.content.res.Configuration;
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.GridLayoutManager;
 
 import com.androidtutz.anushka.tmdbclient.R;
 import com.androidtutz.anushka.tmdbclient.adapter.MovieAdapter;
 import com.androidtutz.anushka.tmdbclient.databinding.ActivityMainBinding;
 import com.androidtutz.anushka.tmdbclient.model.Movie;
-import com.androidtutz.anushka.tmdbclient.model.MovieDBResponse;
-import com.androidtutz.anushka.tmdbclient.service.MovieDataService;
-import com.androidtutz.anushka.tmdbclient.service.RetrofitInstance;
+import com.androidtutz.anushka.tmdbclient.viewmodel.MainActivityViewModel;
 
 import java.util.ArrayList;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 public class MainActivity extends AppCompatActivity
 {
     private ActivityMainBinding binding;
+    
+    private MainActivityViewModel mainActivityViewModel;
     
     private ArrayList<Movie> movies;
     private MovieAdapter movieAdapter;
@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         
+        mainActivityViewModel = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(this.getApplication())).get(MainActivityViewModel.class);
         getSupportActionBar().setTitle("TMDB Popular Movies Today");
         
         getPopularMovies();
@@ -50,33 +51,18 @@ public class MainActivity extends AppCompatActivity
         });
     }
     
-    public void getPopularMovies()
+    private void getPopularMovies()
     {
-        MovieDataService movieDataService = RetrofitInstance.getService();
-        
-        Call<MovieDBResponse> call = movieDataService.getPopularMovies(this.getString(R.string.api_key));
-        
-        call.enqueue(new Callback<MovieDBResponse>()
-        {
+        mainActivityViewModel.getPopularMovies().observe(this, new Observer<ArrayList<Movie>>() {
             @Override
-            public void onResponse(Call<MovieDBResponse> call, Response<MovieDBResponse> response)
+            public void onChanged(@Nullable ArrayList<Movie> list)
             {
-                MovieDBResponse movieDBResponse = response.body();
-                
-                if ( movieDBResponse != null && movieDBResponse.getMovies() != null )
-                {
-                    movies = (ArrayList<Movie>) movieDBResponse.getMovies();
-                    showOnRecyclerView();
-                }
-            }
-            
-            @Override
-            public void onFailure(Call<MovieDBResponse> call, Throwable t)
-            {
-            
+                movies = list;
+                showOnRecyclerView();
             }
         });
     }
+    
     
     private void showOnRecyclerView()
     {
