@@ -10,6 +10,7 @@ import com.androidtutz.anushka.tmdbclient.model.Movie;
 import com.androidtutz.anushka.tmdbclient.viewmodel.MainActivityViewModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -51,13 +52,13 @@ public class MainActivity extends AppCompatActivity
         });
     }
     
-    private void getPopularMovies()
+    public void getPopularMovies()
     {
-        mainActivityViewModel.getPopularMovies().observe(this, new Observer<ArrayList<Movie>>() {
+        mainActivityViewModel.getPopularMovies().observe(this, new Observer<List<Movie>>() {
             @Override
-            public void onChanged(@Nullable ArrayList<Movie> list)
+            public void onChanged(@Nullable List<Movie> list)
             {
-                movies = list;
+                movies = (ArrayList<Movie>) list;
                 showOnRecyclerView();
             }
         });

@@ -7,6 +7,7 @@ import com.androidtutz.anushka.tmdbclient.service.MovieDataService;
 import com.androidtutz.anushka.tmdbclient.service.RetrofitInstance;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import androidx.lifecycle.MutableLiveData;
 import retrofit2.Call;
@@ -17,18 +18,20 @@ public class PopularMoviesRepository
 {
     private Application application;
     
-    private MutableLiveData<ArrayList<Movie>> movies = new MutableLiveData<>();
+    private ArrayList<Movie> movies = new ArrayList<>();
+    private MutableLiveData<List<Movie>> mutableLiveData = new MutableLiveData<>();
     
     public PopularMoviesRepository(Application application)
     {
         this.application = application;
     }
     
-    public MutableLiveData<ArrayList<Movie>> getPopularMovies()
+    // Getter
+    public MutableLiveData<List<Movie>> getMutableLiveData()
     {
         MovieDataService movieDataService = RetrofitInstance.getService();
     
-        Call<MovieDBResponse> call = movieDataService.getPopularMovies(application.getString(R.string.api_key));
+        Call<MovieDBResponse> call = movieDataService.getPopularMovies(application.getApplicationContext().getString(R.string.api_key));
     
         call.enqueue(new Callback<MovieDBResponse>()
         {
@@ -39,8 +42,8 @@ public class PopularMoviesRepository
     
                 if ( movieDBResponse != null && movieDBResponse.getMovies() != null )
                 {
-                    ArrayList<Movie> movies = (ArrayList<Movie>) movieDBResponse.getMovies();
-                    PopularMoviesRepository.this.movies.postValue(movies);
+                    movies = (ArrayList<Movie>) movieDBResponse.getMovies();
+                    mutableLiveData.postValue(movies);
                 }
             }
         
@@ -51,6 +54,6 @@ public class PopularMoviesRepository
             }
         });
         
-        return movies;
+        return mutableLiveData;
     }
 }
