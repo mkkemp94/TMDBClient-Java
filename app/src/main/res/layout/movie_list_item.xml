@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:bind="http://schemas.android.com/tools">
 
     <data>
+        <variable
+            name="movie"
+            type="com.androidtutz.anushka.tmdbclient.model.Movie" />
+
         <variable
             name="clickHandlers"
             type="com.androidtutz.anushka.tmdbclient.adapter.MovieAdapter.MovieViewHolder.MovieAdapterClickHandlers" />
@@ -32,6 +36,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:id="@+id/ivMovie"
+                    bind:posterPath="@{movie.posterPath}"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:scaleType="fitXY"/>
 
@@ -43,6 +48,7 @@
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:paddingTop="10dp"
+                    android:text="@{movie.title}"
                     android:textColor="@color/colorPrimary"
                     android:textSize="15dp"/>
 
@@ -54,6 +60,7 @@
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:paddingBottom="5dp"
+                    android:text="@{Double.toString(movie.voteAverage)}"
                     android:textColor="@color/colorAccent"
                     android:textSize="12dp"/>
 

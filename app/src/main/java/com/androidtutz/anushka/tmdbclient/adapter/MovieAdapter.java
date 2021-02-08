@@ -10,7 +10,6 @@ import com.androidtutz.anushka.tmdbclient.R;
 import com.androidtutz.anushka.tmdbclient.databinding.MovieListItemBinding;
 import com.androidtutz.anushka.tmdbclient.model.Movie;
 import com.androidtutz.anushka.tmdbclient.view.MovieActivity;
-import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
@@ -49,15 +48,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     @Override
     public void onBindViewHolder(@NonNull MovieViewHolder holder, int position)
     {
-        holder.binding.tvTitle.setText(movieArrayList.get(position).getOriginalTitle());
-        holder.binding.tvRating.setText(Double.toString(movieArrayList.get(position).getVoteAverage()));
-        
-        String imagePath = "https://image.tmdb.org/t/p/w500" + movieArrayList.get(position).getPosterPath();
-        
-        Glide.with(context)
-                .load(imagePath)
-                .placeholder(R.drawable.loading)
-                .into(holder.binding.ivMovie);
+        Movie movie = movieArrayList.get(position);
+        holder.binding.setMovie(movie);
     }
     
     @Override

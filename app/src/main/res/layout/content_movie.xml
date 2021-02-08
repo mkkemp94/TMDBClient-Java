@@ -51,7 +51,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/tvMovieRating"
-                        android:text="@={`` + thisMovie.popularity}"
+                        android:text="@{Double.toString(thisMovie.voteAverage)}"
                         android:layout_marginLeft="10dp"
                         android:padding="16dp"
                         android:textSize="20sp"

@@ -6,8 +6,11 @@ package com.androidtutz.anushka.tmdbclient.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.widget.ImageView;
 
 import com.androidtutz.anushka.tmdbclient.BR;
+import com.androidtutz.anushka.tmdbclient.R;
+import com.bumptech.glide.Glide;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -16,10 +19,10 @@ import java.util.List;
 
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
+import androidx.databinding.BindingAdapter;
 
 public class Movie extends BaseObservable implements Parcelable
 {
-
     @SerializedName("vote_count")
     @Expose
     private Integer voteCount;
@@ -41,6 +44,18 @@ public class Movie extends BaseObservable implements Parcelable
     @SerializedName("poster_path")
     @Expose
     private String posterPath;
+    
+    @BindingAdapter({"posterPath"})
+    public static void loadImage(ImageView imageView, String imageURL)
+    {
+        String imagePath = "https://image.tmdb.org/t/p/w500" + imageURL;
+        
+        Glide.with(imageView.getContext())
+                .load(imagePath)
+                .placeholder(R.drawable.loading)
+                .into(imageView);
+    }
+    
     @SerializedName("original_language")
     @Expose
     private String originalLanguage;
