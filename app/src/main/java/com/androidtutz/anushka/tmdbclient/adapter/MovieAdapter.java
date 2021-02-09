@@ -11,24 +11,22 @@ import com.androidtutz.anushka.tmdbclient.databinding.MovieListItemBinding;
 import com.androidtutz.anushka.tmdbclient.model.Movie;
 import com.androidtutz.anushka.tmdbclient.view.MovieActivity;
 
-import java.util.ArrayList;
-
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
+import androidx.paging.PagedListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by K. A. ANUSHKA MADUSANKA on 7/10/2018.
  */
-public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder>
+public class MovieAdapter extends PagedListAdapter<Movie, MovieAdapter.MovieViewHolder>
 {
     private Context context;
-    private ArrayList<Movie> movieArrayList;
     
-    public MovieAdapter(Context context, ArrayList<Movie> movieArrayList)
+    public MovieAdapter(Context context)
     {
+        super(Movie.CALLBACK);
         this.context = context;
-        this.movieArrayList = movieArrayList;
     }
     
     @NonNull
@@ -48,14 +46,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     @Override
     public void onBindViewHolder(@NonNull MovieViewHolder holder, int position)
     {
-        Movie movie = movieArrayList.get(position);
+        Movie movie = getItem(position);
         holder.binding.setMovie(movie);
-    }
-    
-    @Override
-    public int getItemCount()
-    {
-        return movieArrayList.size();
     }
     
     public class MovieViewHolder extends RecyclerView.ViewHolder
@@ -77,10 +69,10 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     
                 if ( position != RecyclerView.NO_POSITION )
                 {
-                    Movie selctedMovie = movieArrayList.get(position);
+                    Movie selectedMovie = getItem(position);
         
                     Intent intent = new Intent(context, MovieActivity.class);
-                    intent.putExtra("movie", selctedMovie);
+                    intent.putExtra("movie", selectedMovie);
                     context.startActivity(intent);
                 }
             }

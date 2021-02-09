@@ -9,14 +9,12 @@ import com.androidtutz.anushka.tmdbclient.databinding.ActivityMainBinding;
 import com.androidtutz.anushka.tmdbclient.model.Movie;
 import com.androidtutz.anushka.tmdbclient.viewmodel.MainActivityViewModel;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.paging.PagedList;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -27,8 +25,7 @@ public class MainActivity extends AppCompatActivity
     
     private MainActivityViewModel mainActivityViewModel;
     
-    private ArrayList<Movie> movies;
-    private MovieAdapter movieAdapter;
+    private PagedList<Movie> movies;
     
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -54,11 +51,12 @@ public class MainActivity extends AppCompatActivity
     
     public void getPopularMovies()
     {
-        mainActivityViewModel.getPopularMovies().observe(this, new Observer<List<Movie>>() {
+        mainActivityViewModel.getMoviesPagedList().observe(this, new Observer<PagedList<Movie>>()
+        {
             @Override
-            public void onChanged(@Nullable List<Movie> list)
+            public void onChanged(@Nullable PagedList<Movie> list)
             {
-                movies = (ArrayList<Movie>) list;
+                movies = list;
                 showOnRecyclerView();
             }
         });
@@ -67,7 +65,8 @@ public class MainActivity extends AppCompatActivity
     
     private void showOnRecyclerView()
     {
-        movieAdapter = new MovieAdapter(this, movies);
+        MovieAdapter movieAdapter = new MovieAdapter(this);
+        movieAdapter.submitList(movies);
         
         if ( this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT )
         {
