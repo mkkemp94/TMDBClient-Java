@@ -9,6 +9,8 @@ import com.androidtutz.anushka.tmdbclient.service.RetrofitInstance;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import androidx.lifecycle.MutableLiveData;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -21,6 +23,7 @@ public class PopularMoviesRepository
     private ArrayList<Movie> movies = new ArrayList<>();
     private MutableLiveData<List<Movie>> mutableLiveData = new MutableLiveData<>();
     
+    @Inject // This annotation tells Dagger that it needs to generate code to add this object to its graph.
     public PopularMoviesRepository(Application application)
     {
         this.application = application;
